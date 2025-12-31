@@ -79,30 +79,39 @@ export const baseHistory = [
 ];
 
 export const trendLine = {
-  data: {
+  FinTech: {
     labels: ['Jan', 'Mar', 'May', 'Jul', 'Sep', 'Nov'],
-    datasets: [{
-      label: 'FinTech funding (INR Cr)',
-      data: [120, 180, 260, 320, 410, 470],
-      fill: true,
-      tension: 0.4,
-      borderColor: '#35c297',
-      backgroundColor: 'rgba(53,194,151,0.15)',
-      pointRadius: 4,
-      pointBackgroundColor: '#35c297'
-    }]
+    data: [120, 180, 260, 320, 410, 470],
   },
-  options: { plugins: { legend: { display: false } }, scales: { x: { ticks: { color: '#9ca3af' } }, y: { ticks: { color: '#9ca3af' } } } }
+  EdTech: {
+    labels: ['Jan', 'Mar', 'May', 'Jul', 'Sep', 'Nov'],
+    data: [80, 110, 150, 190, 240, 260],
+  },
+  HealthTech: {
+    labels: ['Jan', 'Mar', 'May', 'Jul', 'Sep', 'Nov'],
+    data: [90, 130, 170, 210, 260, 300],
+  },
+  SaaS: {
+    labels: ['Jan', 'Mar', 'May', 'Jul', 'Sep', 'Nov'],
+    data: [140, 200, 260, 330, 390, 450],
+  },
 };
 
 export const trendBar = {
-  data: {
+  FinTech: {
     labels: ['Seed', 'Series A', 'Series B'],
-    datasets: [{
-      label: 'Deal count 2024',
-      data: [68, 44, 18],
-      backgroundColor: ['#35c297', '#ef8354', '#64748b']
-    }]
+    data: [68, 44, 18],
   },
-  options: { plugins: { legend: { display: false } }, scales: { x: { ticks: { color: '#9ca3af' } }, y: { ticks: { color: '#9ca3af' } } } }
+  EdTech: {
+    labels: ['Seed', 'Series A', 'Series B'],
+    data: [40, 28, 12],
+  },
+  HealthTech: {
+    labels: ['Seed', 'Series A', 'Series B'],
+    data: [36, 26, 10],
+  },
+  SaaS: {
+    labels: ['Seed', 'Series A', 'Series B'],
+    data: [72, 50, 22],
+  },
 };
