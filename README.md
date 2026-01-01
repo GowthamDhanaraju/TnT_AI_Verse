@@ -71,24 +71,24 @@ npm run preview
 
 ## Team
 
-<table style="width:100%; border-collapse:collapse; border:none;">
+<table align="center" width="90%" cellpadding="20" cellspacing="0">
 	<tr>
-		<td align="center" style="border:none; padding:12px; width:25%;">
+		<td align="center" width="25%">
 			<img src="Extrass/gowtham.png" alt="Gowtham SD" width="120" />
 			<div><strong>Gowtham SD</strong></div>
 			<div><a href="https://www.linkedin.com/in/gowtham-dhanaraju-4b482a28a/">LinkedIn</a></div>
 		</td>
-		<td align="center" style="border:none; padding:12px; width:25%;">
-			<img src="Extrass/shruti.jpg" alt="Shruthi Sivakumar" width="120" />
-			<div><strong>Shruthi Sivakumar</strong></div>
+		<td align="center" width="25%">
+			<img src="Extrass/shruti.jpg" alt="Shruti Sivakumar" width="120" />
+			<div><strong>Shruti Sivakumar</strong></div>
 			<div><a href="https://www.linkedin.com/in/shrutisivakumar25/">LinkedIn</a></div>
 		</td>
-		<td align="center" style="border:none; padding:12px; width:25%;">
+		<td align="center" width="25%">
 			<img src="Extrass/ashwin.jpg" alt="Ashwin JR" width="120" />
 			<div><strong>Ashwin JR</strong></div>
 			<div><a href="https://www.linkedin.com/in/ashwin-jayachandran/">LinkedIn</a></div>
 		</td>
-		<td align="center" style="border:none; padding:12px; width:25%;">
+		<td align="center" width="25%">
 			<img src="Extrass/rithesh.jpg" alt="Rithesh SS" width="120" />
 			<div><strong>Rithesh SS</strong></div>
 			<div><a href="https://www.linkedin.com/in/rithesh-ss-aa653a373/">LinkedIn</a></div>
