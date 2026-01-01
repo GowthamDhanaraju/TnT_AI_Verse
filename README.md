@@ -51,12 +51,6 @@ npm run build
 npm run preview
 ```
 
-## Project structure
-- [src/main.jsx](src/main.jsx) mounts the app and pulls in global styles.
-- [src/App.jsx](src/App.jsx) renders the single-page experience.
-- [src/data.js](src/data.js) holds mock investors, schemes, and trend data.
-- [src/styles.css](src/styles.css) contains Tailwind directives and theme tokens.
-- [src/components/ui](src/components/ui) houses shared UI primitives.
 
 ## Conceptual architecture snapshot
 - Client UI (web/voice) connects over HTTPS with JWT and edge protections (CDN/WAF).
@@ -69,12 +63,6 @@ npm run preview
 
 ![Conceptual architecture](Extrass/System_Architecture.png)
 *Conceptual architecture covering edge protections, orchestration, retrieval, scoring, reasoning, and response formatting.*
-
-## Next steps (suggested)
-1) Expand seeded datasets and refine scoring visuals.
-2) Add voice capture to the UI and connect to speech processing when available.
-3) Implement richer citation display and per-result confidence pills.
-4) Introduce telemetry (OTel) and error reporting (Sentry) in the frontend.
 
 ## Scripts
 - `npm run dev` – start dev server
