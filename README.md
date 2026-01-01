@@ -1,6 +1,8 @@
-# Funding Copilot (ARGS prototype)
+# ARGS prototype (Ask · Retrieve · Ground · Share)
 
-Evidence-first capital matching: founders ask in natural language (English/Indic; future voice), ARGS returns investors and government schemes ranked by fit with transparent scoring and citations.
+Ask → Retrieve → Ground → Share: evidence-first answers with scoring and citations so founders act with confidence.
+
+Evidence-first capital matching for founders: ask in English or Indic (with future voice support) and get ranked investors and government schemes with fit scores, inline citations, and confidence so outreach stays targeted and defensible.
 
 ## Demo
 - Prototype walkthrough video: https://drive.google.com/file/d/1M_R_qFoQD4dkIDF0ZcnZc-sUCVVU7rNb/view?usp=sharing
@@ -81,24 +83,24 @@ npm run preview
 
 ## Team
 
-<table>
+<table style="width:100%; border-collapse:collapse; border:none;">
 	<tr>
-		<td align="center">
+		<td align="center" style="border:none; padding:12px; width:25%;">
 			<img src="Extrass/gowtham.png" alt="Gowtham SD" width="120" />
 			<div><strong>Gowtham SD</strong></div>
 			<div><a href="https://www.linkedin.com/in/gowtham-dhanaraju-4b482a28a/">LinkedIn</a></div>
 		</td>
-		<td align="center">
+		<td align="center" style="border:none; padding:12px; width:25%;">
 			<img src="Extrass/shruti.jpg" alt="Shruthi Sivakumar" width="120" />
 			<div><strong>Shruthi Sivakumar</strong></div>
 			<div><a href="https://www.linkedin.com/in/shrutisivakumar25/">LinkedIn</a></div>
 		</td>
-		<td align="center">
+		<td align="center" style="border:none; padding:12px; width:25%;">
 			<img src="Extrass/ashwin.jpg" alt="Ashwin JR" width="120" />
 			<div><strong>Ashwin JR</strong></div>
 			<div><a href="https://www.linkedin.com/in/ashwin-jayachandran/">LinkedIn</a></div>
 		</td>
-		<td align="center">
+		<td align="center" style="border:none; padding:12px; width:25%;">
 			<img src="Extrass/rithesh.jpg" alt="Rithesh SS" width="120" />
 			<div><strong>Rithesh SS</strong></div>
 			<div><a href="https://www.linkedin.com/in/rithesh-ss-aa653a373/">LinkedIn</a></div>
