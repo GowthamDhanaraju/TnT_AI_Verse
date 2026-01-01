@@ -5,7 +5,10 @@ export const investors = [
   { name: 'Matrix Partners India', sectors: ['FinTech', 'Consumer'], stages: ['Seed', 'Series A', 'Series B'], ticket: [4, 20], geo: ['Pan-India'], recencyDays: 120, deals: 10, sources: ['VCCEdge'], portfolioNote: 'Multi-stage investor with consumer tilt' },
   { name: 'Elevation Capital', sectors: ['FinTech', 'EdTech', 'HealthTech'], stages: ['Seed', 'Series A'], ticket: [5, 18], geo: ['Delhi', 'Pan-India'], recencyDays: 60, deals: 9, sources: ['Crunchbase'], portfolioNote: 'Recent seed focus in fintech infra' },
   { name: 'Chiratae Ventures', sectors: ['HealthTech', 'FinTech', 'DeepTech'], stages: ['Series A', 'Series B'], ticket: [8, 25], geo: ['Bangalore'], recencyDays: 200, deals: 6, sources: ['Inc42'], portfolioNote: 'Later-stage preference, health heavy' },
-  { name: 'India Quotient', sectors: ['FinTech', 'Consumer'], stages: ['Pre-Seed', 'Seed'], ticket: [0.5, 3], geo: ['Mumbai', 'Delhi'], recencyDays: 30, deals: 11, sources: ['Website'], portfolioNote: 'Very active at pre-seed' }
+  { name: 'India Quotient', sectors: ['FinTech', 'Consumer'], stages: ['Pre-Seed', 'Seed'], ticket: [0.5, 3], geo: ['Mumbai', 'Delhi'], recencyDays: 30, deals: 11, sources: ['Website'], portfolioNote: 'Very active at pre-seed' },
+  { name: 'Lightspeed India', sectors: ['FinTech', 'SaaS', 'Consumer'], stages: ['Seed', 'Series A', 'Series B'], ticket: [6, 22], geo: ['Delhi', 'Bangalore', 'Pan-India'], recencyDays: 70, deals: 13, sources: ['News', 'Website'], portfolioNote: 'FinTech infra and SaaS heavy in 2024' },
+  { name: 'Athera Ventures', sectors: ['HealthTech', 'SaaS', 'FinTech'], stages: ['Seed', 'Series A'], ticket: [2, 9], geo: ['Hyderabad', 'Bangalore'], recencyDays: 40, deals: 7, sources: ['FounderNetwork'], portfolioNote: 'Regional focus in South India with SaaS overlap' },
+  { name: 'Strive VC', sectors: ['SaaS', 'FinTech'], stages: ['Seed'], ticket: [1, 4], geo: ['Kochi', 'Bangalore', 'Chennai'], recencyDays: 18, deals: 5, sources: ['Reports'], portfolioNote: 'Cross-border fund backing B2B SaaS and payments' }
 ];
 
 export const schemes = [
@@ -70,48 +73,66 @@ export const documents = [
     url: 'https://nasscom.in',
     text: 'Bangalore and Delhi NCR remain top hubs; seed deals dominate 2024 with strong SaaS and FinTech overlap.',
     date: '2024-12-05'
+  },
+  {
+    id: 'lightspeed-note',
+    title: 'Lightspeed India memo',
+    source: 'Internal',
+    url: '#',
+    text: 'Lightspeed wrote 13 India checks in 2024 across SaaS and FinTech; average ticket INR 6-22 Cr with Delhi/Bangalore focus.',
+    date: '2025-01-05'
+  },
+  {
+    id: 'regional-south',
+    title: 'South India funding brief',
+    source: 'Analyst note',
+    url: '#',
+    text: 'Hyderabad and Kochi rounds skew toward SaaS + HealthTech with emerging FinTech infra; active funds include Athera and Strive.',
+    date: '2024-12-28'
   }
 ];
 
 export const baseHistory = [
   { user: 'मुझे फिनटेक स्टार्टअप के लिए सीड फंडिंग चाहिए', bot: 'Top investors: Sequoia (92%), Accel (87%). Cited: Crunchbase Jan 2025, Sequoia site.' },
-  { user: 'सरकारी योजनाएं क्या हैं?', bot: 'Eligible: Startup India Seed Fund (95% confidence), SIDBI FoF (88%).' }
+  { user: 'सरकारी योजनाएं क्या हैं?', bot: 'Eligible: Startup India Seed Fund (95% confidence), SIDBI FoF (88%).' },
+  { user: 'சென்னைல் 8 கோடி SaaS பால நிதி தேவை', bot: 'Shortlist: Sequoia, Accel, Athera. Cited: regional brief, SaaS snapshot.' },
+  { user: 'Hyderabad healthtech Series A', bot: 'Match: Athera (78%), Chiratae (72%). Cited: South India brief.' }
 ];
 
 export const trendLine = {
   FinTech: {
     labels: ['Jan', 'Mar', 'May', 'Jul', 'Sep', 'Nov'],
-    data: [120, 180, 260, 320, 410, 470],
+    data: [180, 160, 240, 210, 330, 280],
   },
   EdTech: {
     labels: ['Jan', 'Mar', 'May', 'Jul', 'Sep', 'Nov'],
-    data: [80, 110, 150, 190, 240, 260],
+    data: [110, 90, 130, 120, 170, 150],
   },
   HealthTech: {
     labels: ['Jan', 'Mar', 'May', 'Jul', 'Sep', 'Nov'],
-    data: [90, 130, 170, 210, 260, 300],
+    data: [150, 170, 140, 190, 180, 210],
   },
   SaaS: {
     labels: ['Jan', 'Mar', 'May', 'Jul', 'Sep', 'Nov'],
-    data: [140, 200, 260, 330, 390, 450],
+    data: [220, 200, 260, 230, 310, 290],
   },
 };
 
 export const trendBar = {
   FinTech: {
     labels: ['Seed', 'Series A', 'Series B'],
-    data: [68, 44, 18],
+    data: [72, 38, 26],
   },
   EdTech: {
     labels: ['Seed', 'Series A', 'Series B'],
-    data: [40, 28, 12],
+    data: [46, 22, 10],
   },
   HealthTech: {
     labels: ['Seed', 'Series A', 'Series B'],
-    data: [36, 26, 10],
+    data: [30, 34, 12],
   },
   SaaS: {
     labels: ['Seed', 'Series A', 'Series B'],
-    data: [72, 50, 22],
+    data: [64, 58, 28],
   },
 };

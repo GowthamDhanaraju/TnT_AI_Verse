@@ -3,7 +3,10 @@ import { cn } from '../../lib/utils.js';
 
 export function Card({ className = '', children }) {
   return (
-    <div className={cn('rounded-lg border border-[var(--border)] bg-[var(--card)] p-4 shadow-none', className)}>
+    <div className={cn(
+      'rounded-2xl border border-[var(--hairline)] bg-[var(--card)] p-5 shadow-[0_16px_60px_rgba(0,0,0,0.25)] backdrop-blur-md transition-transform duration-200 hover:-translate-y-[1px]',
+      className
+    )}>
       {children}
     </div>
   );

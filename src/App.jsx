@@ -16,18 +16,15 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './com
 import { Badge } from './components/ui/badge.jsx';
 import { Input } from './components/ui/input.jsx';
 import { Select } from './components/ui/select.jsx';
-import { Textarea } from './components/ui/textarea.jsx';
 import { Label } from './components/ui/label.jsx';
 import { investors, schemes, documents, trendLine, trendBar, contexts, baseHistory } from './data.js';
-
-const freshnessTag = 'Demo data · last updated 15 days ago';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, Tooltip, Legend, Filler);
 
 const dotsForConfidence = (score) => {
-  if (score >= 80) return { active: 6, label: 'High', tone: 'high' };
-  if (score >= 60) return { active: 4, label: 'Medium', tone: 'mid' };
-  return { active: 2, label: 'Low', tone: 'low' };
+  if (score >= 80) return { active: 6, label: 'High', tone: 'high', color: 'from-emerald-400 to-emerald-600' };
+  if (score >= 60) return { active: 4, label: 'Medium', tone: 'mid', color: 'from-amber-300 to-amber-500' };
+  return { active: 2, label: 'Low', tone: 'low', color: 'from-rose-300 to-rose-500' };
 };
 
 const normalize = (text) => text.toLowerCase().replace(/[^a-z0-9\s]/g, ' ');
@@ -55,9 +52,11 @@ const cosine = (a, b) => {
 
 const detectLanguage = (text) => {
   const hasHindi = /[\u0900-\u097F]/.test(text);
+  const hasMalayalam = /[\u0D00-\u0D7F]/.test(text);
   if (hasHindi) return { lang: 'Hindi', translation: 'FinTech seed funding needed', responseLang: 'Hindi' };
   if (/தமிழ்|ஃபின்டெக்/i.test(text)) return { lang: 'Tamil', translation: 'Need seed funding for FinTech', responseLang: 'Tamil' };
   if (/తెలుగు/i.test(text)) return { lang: 'Telugu', translation: 'Need seed funding for FinTech', responseLang: 'Telugu' };
+  if (hasMalayalam) return { lang: 'Malayalam', translation: 'Need seed funding for FinTech', responseLang: 'Malayalam' };
   return { lang: 'English', translation: 'N/A', responseLang: 'English' };
 };
 
@@ -154,35 +153,129 @@ const AnswerCard = ({ answer }) => (
   </Card>
 );
 
-const QuickPrompts = ({ onSelect }) => (
-  <Card>
-    <CardHeader className="pb-2">
-      <SimpleHeader eyebrow="Jump in" title="Try a prompt" subtitle="Different sectors and cities to show variation" />
-    </CardHeader>
-    <CardContent className="flex flex-wrap gap-2">
-      {[
-        'Need pre-seed edtech capital in Mumbai',
-        'Looking for healthtech Series A in Delhi',
-        'Require SaaS bridge round 8 Cr in Bangalore',
-        'Women-led fintech applying for gov grants in Chennai',
-        'D2C + fintech hybrid seeking seed in Pune'
-      ].map((text) => (
-        <Button key={text} variant="ghost" size="sm" onClick={() => onSelect(text)}>{text}</Button>
-      ))}
-    </CardContent>
-  </Card>
-);
+const promptLibrary = [
+  {
+    lang: 'English',
+    badge: 'EN',
+    items: [
+      { text: 'Need pre-seed edtech capital in Mumbai', translation: 'Need pre-seed edtech capital in Mumbai', sector: 'EdTech', stage: 'Seed', location: 'Mumbai', amount: 2 },
+      { text: 'Looking for healthtech Series A in Delhi', translation: 'Looking for healthtech Series A in Delhi', sector: 'HealthTech', stage: 'Series A', location: 'Delhi', amount: 12 },
+      { text: 'Require SaaS bridge round 8 Cr in Bangalore', translation: 'Require SaaS bridge round 8 Cr in Bangalore', sector: 'SaaS', stage: 'Series A', location: 'Bangalore', amount: 8 },
+      { text: 'Women-led fintech applying for gov grants in Chennai', translation: 'Women-led fintech applying for government grants in Chennai', sector: 'FinTech', stage: 'Seed', location: 'Chennai', amount: 3 },
+      { text: 'D2C + fintech hybrid seeking seed in Pune', translation: 'D2C + fintech hybrid seeking seed in Pune', sector: 'FinTech', stage: 'Seed', location: 'Pune', amount: 4 }
+    ]
+  },
+  {
+    lang: 'Hindi',
+    badge: 'HI',
+    items: [
+      { text: 'दिल्ली में हेल्थटेक सीरीज़ A निवेशक चाहिए', translation: 'Need healthtech Series A investor in Delhi', sector: 'HealthTech', stage: 'Series A', location: 'Delhi', amount: 10 },
+      { text: 'मुंबई में प्री-सीड एडटेक फंडिंग खोज रहा हूँ', translation: 'Seeking pre-seed edtech funding in Mumbai', sector: 'EdTech', stage: 'Seed', location: 'Mumbai', amount: 2 },
+      { text: 'बेंगलुरु में 8 करोड़ SaaS ब्रिज राउंड', translation: '8 Cr SaaS bridge round in Bangalore', sector: 'SaaS', stage: 'Series A', location: 'Bangalore', amount: 8 },
+      { text: 'चेन्नई में फिनटेक महिला-नेतृत्व स्टार्टअप के लिए अनुदान', translation: 'Grant for women-led fintech startup in Chennai', sector: 'FinTech', stage: 'Seed', location: 'Chennai', amount: 3 },
+      { text: 'पुणे में D2C + फिनटेक सीड फंडिंग', translation: 'D2C + fintech seed funding in Pune', sector: 'FinTech', stage: 'Seed', location: 'Pune', amount: 4 }
+    ]
+  },
+  {
+    lang: 'Tamil',
+    badge: 'TA',
+    items: [
+      { text: 'சென்னைல் பெண்கள் தலைமையிலான ஃபின்டெக் மானியம்', translation: 'Women-led fintech grant in Chennai', sector: 'FinTech', stage: 'Seed', location: 'Chennai', amount: 3 },
+      { text: 'பெங்களூருவில் 8 கோடி SaaS பால நிதி', translation: '8 Cr SaaS bridge round in Bangalore', sector: 'SaaS', stage: 'Series A', location: 'Bangalore', amount: 8 },
+      { text: 'மும்பையில் ப்ரீ-சீட் எடுடெக் நிதி தேவை', translation: 'Need pre-seed edtech funding in Mumbai', sector: 'EdTech', stage: 'Seed', location: 'Mumbai', amount: 2 },
+      { text: 'டெல்லியில் ஹெல்த்டெக் Series A முடிவு', translation: 'Healthtech Series A round in Delhi', sector: 'HealthTech', stage: 'Series A', location: 'Delhi', amount: 12 },
+      { text: 'கோயம்புத்தூரில் D2C + ஃபின்டெக் விதை முதலீடு', translation: 'D2C + fintech seed investment in Coimbatore', sector: 'FinTech', stage: 'Seed', location: 'Chennai', amount: 4 }
+    ]
+  },
+  {
+    lang: 'Telugu',
+    badge: 'TE',
+    items: [
+      { text: 'హైదరాబాద్‌లో ప్రీ-సీడ్ ఎడ్టెక్ ఫండింగ్ కావాలి', translation: 'Need pre-seed edtech funding in Hyderabad', sector: 'EdTech', stage: 'Seed', location: 'Hyderabad', amount: 2 },
+      { text: 'విజయవాడలో హెల్త్టెక్ Series A పెట్టుబడి', translation: 'Healthtech Series A investment in Vijayawada', sector: 'HealthTech', stage: 'Series A', location: 'Hyderabad', amount: 10 },
+      { text: 'బెంగళూరులో 8 కోట్లు SaaS బ్రిడ్జ్ రౌండ్', translation: '8 Cr SaaS bridge round in Bangalore', sector: 'SaaS', stage: 'Series A', location: 'Bangalore', amount: 8 },
+      { text: 'చెన్నైలో ఫిన్‌టెక్ మహిళా స్టార్టప్ గ్రాంట్', translation: 'Fintech women startup grant in Chennai', sector: 'FinTech', stage: 'Seed', location: 'Chennai', amount: 3 },
+      { text: 'పుణేలో D2C + ఫిన్‌టెక్ సీడ్ రైజ్', translation: 'D2C + fintech seed raise in Pune', sector: 'FinTech', stage: 'Seed', location: 'Pune', amount: 4 }
+    ]
+  },
+  {
+    lang: 'Malayalam',
+    badge: 'ML',
+    items: [
+      { text: 'കൊച്ചിയിൽ പ്രീ-സീഡ് എഡ്ടെക് ഫണ്ടിംഗ് വേണം', translation: 'Need pre-seed edtech funding in Kochi', sector: 'EdTech', stage: 'Seed', location: 'Kochi', amount: 2 },
+      { text: 'തിരുവനന്തപുരംയിൽ ഹെൽത്ത്റ്റെക് Series A നിക്ഷേപം', translation: 'Healthtech Series A investment in Trivandrum', sector: 'HealthTech', stage: 'Series A', location: 'Kochi', amount: 10 },
+      { text: 'ബെംഗളൂരുവിൽ 8 കോടി SaaS ബ്രിഡ്ജ് റൗണ്ട്', translation: '8 Cr SaaS bridge round in Bangalore', sector: 'SaaS', stage: 'Series A', location: 'Bangalore', amount: 8 },
+      { text: 'ചെന്നൈയിൽ വനിതാ ഫിൻടെക് സ്റ്റാർട്ടപ്പിന് ഗ്രാൻറ്', translation: 'Grant for women-led fintech startup in Chennai', sector: 'FinTech', stage: 'Seed', location: 'Chennai', amount: 3 },
+      { text: 'പൂനെയിൽ D2C + ഫിൻടെക് സീഡ് ഫണ്ടിംഗ്', translation: 'D2C + fintech seed funding in Pune', sector: 'FinTech', stage: 'Seed', location: 'Pune', amount: 4 }
+    ]
+  }
+];
 
-const Hero = ({ onHindi, onTamil }) => (
-  <Card className="bg-[var(--panel)]">
-    <CardContent className="grid gap-3">
+const QuickPrompts = ({ onSelect }) => {
+  const [langChoice, setLangChoice] = useState(promptLibrary[0].lang);
+  const selected = promptLibrary.find((g) => g.lang === langChoice) || promptLibrary[0];
+
+  return (
+    <Card>
+      <CardHeader className="pb-2">
+        <SimpleHeader eyebrow="Jump in" title="Pick a prompt" subtitle="Choose a language then a prompt" />
+      </CardHeader>
+      <CardContent className="grid gap-3 md:grid-cols-[1fr,2fr] md:items-end">
+        <div className="grid gap-1">
+          <Label>Language</Label>
+          <Select
+            aria-label="Prompt language"
+            value={langChoice}
+            onChange={(e) => setLangChoice(e.target.value)}
+            className="h-10 text-sm"
+          >
+            {promptLibrary.map((group) => (
+              <option key={group.lang} value={group.lang}>{group.lang} ({group.badge})</option>
+            ))}
+          </Select>
+        </div>
+        <div className="grid gap-1">
+          <Label>Prompt</Label>
+          <Select
+            aria-label={`${selected.lang} prompts`}
+            defaultValue=""
+            className="h-10 text-sm"
+            onChange={(e) => {
+              const value = e.target.value;
+              if (!value) return;
+              const prompt = selected.items.find((item) => item.text === value);
+              if (prompt) onSelect({ ...prompt, lang: selected.lang });
+            }}
+          >
+            <option value="">Select</option>
+            {selected.items.map((item) => (
+              <option key={item.text} value={item.text}>{item.text}</option>
+            ))}
+          </Select>
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
+
+const Hero = () => (
+  <Card className="relative overflow-hidden bg-gradient-to-r from-[var(--panel)] via-[var(--card)] to-[var(--card)]">
+    <div className="pointer-events-none absolute right-6 top-2 h-28 w-28 rounded-full bg-[var(--accent)]/15 blur-3xl" />
+    <CardContent className="grid gap-4 md:grid-cols-[2fr,1fr] md:items-center">
       <div className="flex flex-col gap-2">
-        <h1 className="text-2xl font-semibold text-[var(--text)]">Find the right investors, quickly.</h1>
-        <p className="text-sm text-[var(--muted)]">Ask in any language. We auto-fill your profile and give you a short list with reasons you can show anyone.</p>
+        <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--muted)]">Investor radar</span>
+        <h1 className="text-3xl font-semibold text-[var(--text)]">Find the right investors, quickly.</h1>
+        <p className="text-sm text-[var(--muted)]">Pick a prompt in your language and get an instant fit with supporting evidence.</p>
       </div>
-      <div className="flex flex-wrap gap-2">
-        <Button onClick={onHindi}>🇮🇳 Hindi example</Button>
-        <Button variant="ghost" onClick={onTamil}>🌺 Tamil example</Button>
+      <div className="grid gap-3 rounded-xl border border-[var(--hairline)] bg-[var(--panel)]/60 p-4 text-sm text-[var(--muted)] shadow-inner">
+        <div className="flex items-center justify-between text-[var(--text)]">
+          <span className="text-xs uppercase tracking-[0.16em] text-[var(--muted)]">Coverage</span>
+          <Badge className="bg-[var(--accent)]/20 text-[var(--text)]">EN · HI · TA · TE · ML</Badge>
+        </div>
+        <div className="flex items-center justify-between text-[var(--text)]">
+          <span>Prompt library</span>
+          <span className="text-[var(--muted)]">25 curated asks</span>
+        </div>
       </div>
     </CardContent>
   </Card>
@@ -190,7 +283,6 @@ const Hero = ({ onHindi, onTamil }) => (
 
 const QueryPanel = ({
   query,
-  setQuery,
   detected,
   runAnalysis,
   sector,
@@ -208,18 +300,20 @@ const QueryPanel = ({
     <CardHeader className="mb-2">
       <div>
         <CardTitle>Tell us what you need</CardTitle>
-        <CardDescription>Language auto-detect on every query</CardDescription>
+        <CardDescription>Pick a preset prompt; fields auto-fill</CardDescription>
       </div>
     </CardHeader>
     <CardContent className="grid gap-3">
       <div className="grid gap-2">
-        <Label>Ask in any language</Label>
-        <Textarea value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Example: मुझे फिनटेक स्टार्टअप के लिए सीड फंडिंग चाहिए" />
+        <Label>Selected prompt</Label>
+        <div className="rounded-lg border border-[var(--hairline)] bg-[var(--card)]/70 p-3 text-sm text-[var(--text)]">
+          {query ? query : 'Choose a prompt from the list above to populate fields.'}
+        </div>
         <div className="flex flex-wrap items-center justify-between gap-3 text-xs text-[var(--muted)]">
           <span>Language: {detected.lang} · Translation: {detected.translation}</span>
           <div className="flex gap-2">
-            <Button onClick={runAnalysis}>Run</Button>
-            <Button variant="ghost" onClick={() => setQuery('')}>Clear</Button>
+            <Button onClick={runAnalysis} disabled={!query}>Run</Button>
+            <Button variant="ghost" onClick={() => runAnalysis()}>Refresh</Button>
           </div>
         </div>
       </div>
@@ -248,6 +342,9 @@ const QueryPanel = ({
             <option value="Mumbai">Mumbai</option>
             <option value="Delhi">Delhi</option>
             <option value="Chennai">Chennai</option>
+            <option value="Hyderabad">Hyderabad</option>
+            <option value="Kochi">Kochi</option>
+            <option value="Pune">Pune</option>
           </Select>
         </div>
         <div className="grid gap-1">
@@ -259,27 +356,29 @@ const QueryPanel = ({
         <span>We will detect language, auto-fill fields, and rank investors.</span>
         <label className="flex items-center gap-2 text-xs text-[var(--muted)]">
           <input type="checkbox" checked={autoFill} onChange={(e) => setAutoFill(e.target.checked)} />
-          <span>Auto-fill from query</span>
+          <span>Auto-fill from prompt</span>
         </label>
       </div>
     </CardContent>
   </Card>
 );
 
-const InvestorsPanel = ({ scoredInvestors, confidence }) => {
+const InvestorsPanel = ({ scoredInvestors, confidence, topScore }) => {
   const primary = scoredInvestors.slice(0, 4);
   const rest = scoredInvestors.slice(4);
   return (
     <div className="grid gap-3">
       <div className="flex items-start justify-between gap-2">
         <SimpleHeader eyebrow="Matches" title="Top investors" subtitle="Simple scores with reasons" />
-        <div className="flex items-center gap-2 text-xs text-[var(--muted)]">
-          <div className="flex items-center gap-1">
-            {Array.from({ length: 6 }).map((_, i) => (
-              <span key={i} className={`h-1.5 w-3 rounded-full ${i < confidence.active ? 'bg-[var(--accent)]' : 'bg-[var(--hairline)]'}`}></span>
-            ))}
+        <div className="flex items-center gap-3 text-xs text-[var(--muted)]">
+          <div className="flex flex-col items-end">
+            <span className="text-[var(--text)] font-semibold">Confidence {confidence.label}</span>
+            <span className="text-[var(--muted)]">Score {topScore}/100</span>
           </div>
-          <span>Confidence {confidence.label}</span>
+          <div className="relative h-10 w-28 overflow-hidden rounded-full border border-[var(--hairline)] bg-[var(--card)]">
+            <div className={`absolute inset-y-1 left-1 right-1 rounded-full bg-gradient-to-r ${confidence.color}`} style={{ width: `${Math.min(100, Math.max(20, topScore))}%` }}></div>
+            <div className="relative z-10 flex h-full items-center justify-center text-[11px] font-semibold text-[#04101a] mix-blend-screen">{confidence.label}</div>
+          </div>
         </div>
       </div>
       <div className="grid gap-2 md:grid-cols-2">
@@ -370,8 +469,8 @@ const TrendsPanel = ({ trendMeta, sector }) => {
     <div className="grid gap-3">
       <SimpleHeader eyebrow="Signals" title="Funding trends" subtitle="Two-column snapshot with a quick bar view" />
       <div className="grid gap-3 md:grid-cols-2">
-        <Card>
-          <CardContent className="grid gap-2">
+        <Card className="min-w-0 w-full h-full">
+          <CardContent className="flex h-full min-w-0 w-full flex-col gap-2">
             <div className="flex items-center justify-between">
               <div className="text-sm font-medium text-[var(--text)]">Trajectory (INR Cr)</div>
               <div className="flex items-center gap-2 text-xs text-[var(--muted)]">
@@ -379,7 +478,7 @@ const TrendsPanel = ({ trendMeta, sector }) => {
                 <span>{trendMeta.labels[0]} → {trendMeta.labels[trendMeta.labels.length - 1]}</span>
               </div>
             </div>
-            <div className="h-[280px] w-full">
+            <div className="flex-1 min-h-[320px] w-full min-w-0 max-w-full">
               <Line data={lineData} options={lineOptions} />
             </div>
             <div className="grid grid-cols-2 gap-2 text-xs text-[var(--muted)]">
@@ -389,8 +488,8 @@ const TrendsPanel = ({ trendMeta, sector }) => {
           </CardContent>
         </Card>
 
-        <Card>
-          <CardContent className="grid gap-2">
+        <Card className="min-w-0 w-full h-full">
+          <CardContent className="flex h-full min-w-0 w-full flex-col gap-2">
             <div className="text-sm font-medium text-[var(--text)]">Snapshot</div>
             <div className="grid gap-2">
               <div className="rounded border border-[var(--hairline)] px-3 py-2">
@@ -409,12 +508,12 @@ const TrendsPanel = ({ trendMeta, sector }) => {
                 <div className="text-xs text-[var(--muted)]">Seed / A / B</div>
               </div>
             </div>
-            <div className="grid gap-2">
+            <div className="grid gap-2 flex-1">
               <div className="flex items-center justify-between">
                 <span className="text-xs text-[var(--muted)]">Stage mix (deals)</span>
                 <span className="text-xs text-[var(--muted)]">stacked</span>
               </div>
-              <div className="h-[240px] w-full">
+              <div className="h-[260px] w-full min-w-0 max-w-full">
                 <Bar data={barData} options={barOptions} />
               </div>
               <div className="flex flex-wrap gap-2 text-xs">
@@ -480,14 +579,19 @@ export default function App() {
   const [location, setLocation] = useState('Bangalore');
   const [amount, setAmount] = useState(4);
   const [autoFill, setAutoFill] = useState(true);
-  const [theme, setTheme] = useState('dark');
   const [answer, setAnswer] = useState({ text: 'Run a query to see the reasoning.', sources: [], confidence: 'Low' });
+  const [selectedPrompt, setSelectedPrompt] = useState(null);
 
-  const detected = useMemo(() => detectLanguage(query), [query]);
+  const detected = useMemo(() => {
+    if (selectedPrompt && selectedPrompt.text === query) {
+      return { lang: selectedPrompt.lang || selectedPrompt.badge || 'English', translation: selectedPrompt.translation, responseLang: selectedPrompt.lang || 'English' };
+    }
+    return detectLanguage(query);
+  }, [query, selectedPrompt]);
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-  }, [theme]);
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }, []);
 
   const profile = useMemo(() => ({ query, sector, stage, location, amount, detected }), [query, sector, stage, location, amount, detected]);
 
@@ -541,7 +645,7 @@ export default function App() {
     const lower = text.toLowerCase();
     const sectors = ['fintech', 'edtech', 'healthtech', 'saas'];
     const stages = ['seed', 'series a', 'series b'];
-    const cities = ['bangalore', 'mumbai', 'delhi', 'chennai'];
+    const cities = ['bangalore', 'mumbai', 'delhi', 'chennai', 'hyderabad', 'kochi', 'pune'];
     const foundSector = sectors.find((s) => lower.includes(s));
     const foundStage = stages.find((s) => lower.includes(s));
     const foundCity = cities.find((c) => lower.includes(c));
@@ -554,10 +658,15 @@ export default function App() {
     };
   };
 
-  const runAnalysis = (textOverride) => {
+  const runAnalysis = (textOverride, metaOverride) => {
     const effectiveQuery = textOverride ?? query;
-    const detectedNow = detectLanguage(effectiveQuery);
-    const prof = autoFill ? extractEntities(effectiveQuery) : { ...profile, query: effectiveQuery, detected: detectedNow };
+    const meta = metaOverride ?? (selectedPrompt && selectedPrompt.text === effectiveQuery ? selectedPrompt : null);
+    const detectedNow = meta ? { lang: meta.lang || meta.badge || 'English', translation: meta.translation, responseLang: meta.lang || 'English' } : detectLanguage(effectiveQuery);
+    const prof = autoFill
+      ? meta
+        ? { ...profile, ...meta, query: effectiveQuery, detected: detectedNow }
+        : { ...profile, ...extractEntities(effectiveQuery), query: effectiveQuery, detected: detectedNow }
+      : { ...profile, query: effectiveQuery, detected: detectedNow };
     if (autoFill) {
       setSector(prof.sector);
       setStage(prof.stage);
@@ -579,45 +688,59 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[var(--page)] px-4 py-6 text-[var(--text)]">
-      <nav className="mb-6 flex items-center justify-between gap-2">
-        <div className="text-sm font-semibold">Funding Copilot</div>
-        <div className="flex items-center gap-3 text-xs text-[var(--muted)]">
-          <span>{freshnessTag}</span>
-          <Button variant="ghost" size="sm" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
-            {theme === 'dark' ? '🌞 Light' : '🌙 Dark'}
-          </Button>
-        </div>
-      </nav>
+    <div className="relative isolate min-h-screen overflow-hidden bg-[var(--page)] px-4 py-8 text-[var(--text)]">
+      <div className="pointer-events-none absolute inset-0 -z-10">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_12%_18%,rgba(34,211,238,0.16),transparent_32%),radial-gradient(circle_at_85%_12%,rgba(52,211,153,0.12),transparent_30%),linear-gradient(140deg,rgba(255,255,255,0.04),rgba(255,255,255,0))]" />
+        <div className="absolute inset-y-0 left-1/2 w-px bg-gradient-to-b from-transparent via-[var(--hairline)] to-transparent opacity-60" />
+      </div>
 
-      <div className="grid gap-4">
-        <Hero
-          onHindi={() => { const text = 'मुझे फिनटेक स्टार्टअप के लिए सीड फंडिंग चाहिए'; setQuery(text); runAnalysis(text); }}
-          onTamil={() => { const text = 'என் ஃபின்டெக் ஸ்டார்ட்அப்புக்கு seed funding வேண்டும்'; setQuery(text); runAnalysis(text); }}
-        />
-        <QuickPrompts onSelect={(text) => { setQuery(text); runAnalysis(text); }} />
-        <QueryPanel
-          query={query}
-          setQuery={setQuery}
-          detected={detected}
-          runAnalysis={runAnalysis}
-          sector={sector}
-          setSector={setSector}
-          stage={stage}
-          setStage={setStage}
-          location={location}
-          setLocation={setLocation}
-          amount={amount}
-          setAmount={setAmount}
-          autoFill={autoFill}
-          setAutoFill={setAutoFill}
-        />
-        <AnswerPanel answer={answer} />
-        <InvestorsPanel scoredInvestors={scoredInvestors} confidence={confidence} />
-        <SchemesPanel matchedSchemes={matchedSchemes} />
-        <TrendsPanel trendMeta={trendMeta} sector={sector} />
-        <SourcesPanel />
-        <HistoryPanel />
+      <div className="mx-auto flex w-full max-w-none flex-col gap-4">
+        <nav className="flex items-center justify-between gap-3 rounded-2xl border border-[var(--hairline)] bg-[var(--card)]/80 px-4 py-3 backdrop-blur">
+          <div className="flex items-center gap-3">
+            <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-[var(--accent)]/20 text-sm font-semibold text-[var(--accent)]">AI</span>
+            <div className="leading-tight">
+              <div className="text-sm font-semibold">ARGS</div>
+              <div className="text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]">Ask · Retrieve · Ground · Share</div>
+            </div>
+          </div>
+          <div className="flex items-center gap-2 text-xs text-[var(--muted)]" />
+        </nav>
+
+        <div className="grid gap-4">
+          <Hero />
+          <QuickPrompts
+            onSelect={(prompt) => {
+              setSelectedPrompt(prompt);
+              setQuery(prompt.text);
+              setSector(prompt.sector);
+              setStage(prompt.stage);
+              setLocation(prompt.location);
+              setAmount(prompt.amount);
+              runAnalysis(prompt.text, prompt);
+            }}
+          />
+          <QueryPanel
+            query={query}
+            detected={detected}
+            runAnalysis={runAnalysis}
+            sector={sector}
+            setSector={setSector}
+            stage={stage}
+            setStage={setStage}
+            location={location}
+            setLocation={setLocation}
+            amount={amount}
+            setAmount={setAmount}
+            autoFill={autoFill}
+            setAutoFill={setAutoFill}
+          />
+          <AnswerPanel answer={answer} />
+          <InvestorsPanel scoredInvestors={scoredInvestors} confidence={confidence} topScore={topScore} />
+          <SchemesPanel matchedSchemes={matchedSchemes} />
+          <TrendsPanel trendMeta={trendMeta} sector={sector} />
+          <SourcesPanel />
+          <HistoryPanel />
+        </div>
       </div>
     </div>
   );
