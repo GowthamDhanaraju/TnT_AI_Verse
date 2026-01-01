@@ -80,7 +80,28 @@ npm run preview
 - `npm run preview` – preview built app
 
 ## Team
-- Gowtham SD
-- Shruthi Sivakumar
-- Ashwin JR
-- Rithesh SS
+
+<table>
+	<tr>
+		<td align="center">
+			<img src="Extrass/gowtham.png" alt="Gowtham SD" width="120" />
+			<div><strong>Gowtham SD</strong></div>
+			<div><a href="https://www.linkedin.com/in/gowtham-dhanaraju-4b482a28a/">LinkedIn</a></div>
+		</td>
+		<td align="center">
+			<img src="Extrass/shruti.jpg" alt="Shruthi Sivakumar" width="120" />
+			<div><strong>Shruthi Sivakumar</strong></div>
+			<div><a href="https://www.linkedin.com/in/shrutisivakumar25/">LinkedIn</a></div>
+		</td>
+		<td align="center">
+			<img src="Extrass/ashwin.jpg" alt="Ashwin JR" width="120" />
+			<div><strong>Ashwin JR</strong></div>
+			<div><a href="https://www.linkedin.com/in/ashwin-jayachandran/">LinkedIn</a></div>
+		</td>
+		<td align="center">
+			<img src="Extrass/rithesh.jpg" alt="Rithesh SS" width="120" />
+			<div><strong>Rithesh SS</strong></div>
+			<div><a href="https://www.linkedin.com/in/rithesh-ss-aa653a373/">LinkedIn</a></div>
+		</td>
+	</tr>
+</table>
